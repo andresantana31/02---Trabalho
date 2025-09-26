@@ -1,5 +1,7 @@
 # Projeto Streaming
 
+Versão JDK 21
+
 Projeto de exemplo com Spring Boot + Spring Data JPA + MySQL.
 
 Foi criada a consulta junto com o incremento ao banco de dados das informações.
