@@ -26,7 +26,6 @@ public class StreamingApplication {
                            VisualizacaoRepository visualizacaoRepo) {
         return args -> {
             System.out.println("\n=== INICIANDO SISTEMA DE STREAMING ===");
-            System.out.println("Populando banco com dados de teste...\n");
 
             // === USUÁRIOS ===
             Usuario u1 = new Usuario(null, "André", "andre@email.com", "1234", LocalDateTime.now());
@@ -99,39 +98,31 @@ public class StreamingApplication {
             visualizacaoRepo.save(new Visualizacao(null, p1, v8, LocalDateTime.now().minusHours(3), 60));
             visualizacaoRepo.save(new Visualizacao(null, p2, v9, LocalDateTime.now().minusHours(4), 100));
 
-            System.out.println("✅ Base de dados populada com sucesso!");
-            System.out.println("📊 Executando consultas...\n");
-
             // === CONSULTAS ===
 
-            System.out.println("🎬 1) FILMES COM 'MISSÃO' NO TÍTULO:");
-            System.out.println("═══════════════════════════════════════");
+            System.out.println("1) FILMES COM 'MISSÃO' NO TÍTULO:");
             List<Video> filmesMissao = videoRepo.findByTituloContainingIgnoreCaseOrderByTituloAsc("Missão");
             filmesMissao.forEach(v -> System.out.println("   • " + v.getTitulo()));
 
-            System.out.println("\n🎯 2) FILMES DA CATEGORIA 'AÇÃO':");
-            System.out.println("═══════════════════════════════════");
+            System.out.println("\n2) FILMES DA CATEGORIA 'AÇÃO':");
             List<Video> videosAcao = videoRepo.findByCategoriaOrderByTituloAsc(catAcao);
             videosAcao.forEach(v -> System.out.println("   • " + v.getTitulo()));
 
-            System.out.println("\n⭐ 3) TOP 10 FILMES MAIS BEM AVALIADOS:");
-            System.out.println("═══════════════════════════════════════");
+            System.out.println("\n3) TOP 10 FILMES MAIS BEM AVALIADOS:");
             List<Video> topAvaliados = videoRepo.findTop10ByAvaliacao(PageRequest.of(0,10));
             for (int i = 0; i < topAvaliados.size(); i++) {
                 System.out.println("   " + (i+1) + "º " + topAvaliados.get(i).getTitulo());
             }
 
-            System.out.println("\n🔥 4) TOP 10 FILMES MAIS ASSISTIDOS:");
-            System.out.println("═══════════════════════════════════");
+            System.out.println("\n4) TOP 10 FILMES MAIS ASSISTIDOS:");
             List<Video> topAssistidos = videoRepo.findTop10ByVisualizacoes(PageRequest.of(0,10));
             for (int i = 0; i < topAssistidos.size(); i++) {
                 System.out.println("   " + (i+1) + "º " + topAssistidos.get(i).getTitulo());
             }
 
-            System.out.println("\n👑 5) USUÁRIO MAIS ATIVO:");
-            System.out.println("═══════════════════════════");
+            System.out.println("\n5) USUÁRIO MAIS ATIVO:");
             List<Usuario> topUser = usuarioRepo.findUsuarioMaisAtivo(PageRequest.of(0,1));
-            topUser.forEach(u -> System.out.println("   🏆 " + u.getNome()));
+            topUser.forEach(u -> System.out.println(u.getNome()));
         };
     }
 }
